@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin đăng Nhập</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('background_login.jpg');
+            margin: 0;
+        }
+        .login-container {
+            background: white;
+            padding: 25px;
+            width: 350px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 22px;
+            color: #333;
+        }
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            outline: none;
+            transition: 0.3s;
+        }
+        input:focus {
+            border-color: #007BFF;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+        }
+        button {
+            width: 50%;
+            padding: 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #0056b3;
+            box-shadow: 0 4px 10px rgba(0, 91, 187, 0.4);
+        }
+        .input-container {
+            position: relative;
+        }
+        .input-container input {
+            padding-right: 40px;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 14px;
+            color: #007BFF;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Thông tin đăng nhập</h2>
+    <input type="text" id="username" placeholder="Tên đăng nhập">
+    <input type="password" id="password" placeholder="Mật khẩu">
+    <button onclick="login()">Đăng Nhập</button>
+</div>
+
+<script>
+function login() {
+    var username = document.getElementById("username").value.trim();
+    var password = document.getElementById("password").value.trim();
+
+    var accounts = JSON.parse(localStorage.getItem("accounts")) || [];
+
+    var user = accounts.find(acc => acc.username === username && acc.password === password);
+
+    if (user) {
+        localStorage.setItem("loggedIn", "true");
+        window.location.href = "index.html"; // Chuyển hướng đến trang chính
+    } else {
+        alert("Tên đăng nhập hoặc mật khẩu không đúng!");
+    }
+}
+</script>
+
+</body>
+</html>

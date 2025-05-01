@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Sản Phẩm</title>
+    
+    <!-- Thêm font từ Google Fonts (ví dụ: Roboto) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        .quanlysanpham {
+            font-family: 'Roboto', sans-serif; /* Đổi thành font mong muốn */
+        }
+    </style>
+</head>
+<style>
+ /*@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');*/
+ 
+body { 
+    font-family: 'Poppins', Arial, sans-serif; 
+    text-align: center; 
+    margin: 0; 
+    padding: 0;
+    background: url("background_sp.jpg") ;
+    background-size: cover;  /* Phủ toàn màn hình, không bị méo */
+    background-position: center; /* Căn giữa ảnh */
+    background-repeat: no-repeat; /* Không lặp lại */
+    background-attachment: fixed; /* Giữ cố định khi cuộn trang */
+}
+
+h2 { 
+    margin-top: 25px;
+    color: #333; 
+    font-size: 26px; 
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+.clock {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    background: rgba(93, 97, 127, 0.7); /* Cải thiện màu nền với alpha */
+    padding: 10px 20px;
+    border-radius: 10px; /* Đường viền mềm mại hơn */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* Khoảng cách giữa icon và thời gian */
+    margin: 15px auto; /* Căn giữa tự động trên và dưới */
+    max-width: 400px; /* Giới hạn chiều rộng tối đa */
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Thêm bóng cho khung đồng hồ */
+}
+
+.clock-icon {
+    width: 60px;
+    height: 60px;
+    animation: spin 60s linear infinite; /* Xoay 1 vòng trong 60 giây */
+}
+
+/* Thêm hiệu ứng quay cho biểu tượng đồng hồ */
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+table { 
+    width: 90%; 
+    margin: 20px auto; 
+    border-collapse: collapse; 
+    background: #fff; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+    border-radius: 10px; 
+    overflow: hidden;
+}
+
+th, td { 
+    border: 1px solid #dee2e6; 
+    padding: 12px; 
+    text-align: center;
+}
+
+th { 
+    background: linear-gradient(135deg, #007bff, #0056b3); 
+    color: white; 
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+td input { 
+    width: 100px; 
+    text-align: center; 
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 6px;
+    transition: all 0.3s ease-in-out;
+}
+
+td input:focus { 
+    border-color: #007bff; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); 
+    outline: none;
+}
+
+button { 
+    padding: 10px 15px; 
+    cursor: pointer; 
+    border: none; 
+    border-radius: 8px; 
+    font-weight: bold; 
+    transition: all 0.3s ease-in-out;
+}
+
+button.green { 
+    background: #28a745; 
+    color: white;
+}
+
+button.green:hover { 
+    background: #218838;
+}
+
+button.red { 
+    background: #dc3545; 
+    color: white;
+}
+
+button.red:hover { 
+    background: #c82333;
+}
+
+.status { 
+    font-weight: bold; 
+    margin-top: 10px; 
+    padding: 10px; 
+    display: inline-block; 
+    border-radius: 5px;
+}
+
+.status.green { 
+    color: green; 
+}
+
+.status.red { 
+    color: red; 
+}
+
+button#backButton { 
+    margin-top: 20px; 
+    padding: 12px 25px; 
+    font-size: 16px; 
+    background: #ff5733; 
+    color: white; 
+    border: none; 
+    cursor: pointer; 
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+button#backButton:hover { 
+    background: #e04122; 
+    transform: scale(1.05);
+}
+.battery {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 50px;
+  height: 20px;
+  border: 2px solid #333;
+  border-radius: 3px;
+  padding: 2px;
+  background-color: #ecf9eb;
+  position: relative;
+}
+
+.battery-segment {
+  width: 8px;
+  height: 100%;
+  margin: 0 1px;
+  background-color: #ccc;
+  border-radius: 1px;
+  transition: background-color 0.3s, opacity 0.3s;
+}
+
+.battery-segment.filled {
+  background-color: green;
+}
+
+.battery-segment.low-blink {
+  animation: blink-red 1s infinite;
+}
+
+@keyframes blink-red {
+  0%, 100% {
+    background-color: red;
+    opacity: 1;
+  }
+  50% {
+    background-color: red;
+    opacity: 0.2;
+  }
+}
+ /*can nang*/
+/* Hiệu ứng nhấp nháy cho phần cân nặng dưới 2kg */
+.blink {
+    animation: blinkAnimation 1s infinite;
+}
+
+@keyframes blinkAnimation {
+    0% {
+        color: red;
+    }
+    50% {
+        color: transparent;
+    }
+    100% {
+        color: red;
+    }
+}
+/*ô id*/
+.blink {
+  animation: blink-red 1s infinite;
+  color: white;
+}
+
+@keyframes blink-red {
+  0% { background-color: red; }
+  50% { background-color: transparent; }
+  100% { background-color: red; }
+}
+
+
+/* Hiệu ứng khi thêm hàng */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media screen and (max-width: 768px) {
+    table { width: 100%; }
+    input { width: 80px; }
+    button { font-size: 14px; padding: 6px 12px; }
+}
+
+
+</style>
+<h2>QUẢN LÝ SẢN PHẨM</h2>
+<div class="clock" id="clock">
+    <img src="https://cdn4.iconfinder.com/data/icons/shopping-e-commerce-10/33/processing_time-128.png" alt="Clock Icon" class="clock-icon">
+    <span id="time">00:00:00</span>
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Sản Phẩm</th>
+           <!-- <th> Địa chỉ </th> -->
+            <th>Giá (VNĐ)</th>
+            <th>Giảm giá (%)</th>
+            <th>Giờ sale bắt đầu</th> 
+            <th>Giờ sale kết thúc</th>
+            
+            <th>Trạng Thái</th>
+            <th>Hành Động</th>
+            <th>Pin</th>
+            <th>Cân nặng</th>
+
+        </tr>
+    </thead>
+    <tbody id="productTable">
+        <tr>
+            <td id="productId01">01</td>
+            <td><input type="text" id="product1" value="Milk"></td>
+            <!-- <td><input type="text" id="add1" value="A"></td> -->
+            <td><input type="text" id="price1" value="20 000"></td>
+            <td><input type="text" id="sale1" placeholder=""></td>
+            <td><input type="time" id="saleStartTime1"onclick="toggleTime(this)"></td> 
+            <td><input type="time" id="saleEndTime1"onclick="toggleTime(this)"></td>
+            <td id="status1">Chưa cập nhật</td>
+            <td><button onclick="sendPrice('01', 'product1', 'A', 'price1', 'sale1','saleStartTime1','saleEndTime1', 'status1')">Cập Nhật</button></td>
+            <td>
+                <div class="battery" id="battery01">
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                </div>
+              </td>
+            <td><input type="text" id="weight01" disabled /></td>
+
+        </tr>
+        <tr>
+            <td id="productId02">02</td>
+            <td><input type="text" id="product2" value="Bread"></td>
+            <!-- <td><input type="text" id="add2" value="B"></td>  -->
+            <td><input type="text" id="price2" value="15 000"></td>
+            <td><input type="text" id="sale2" placeholder=""></td>
+            <td><input type="time" id="saleStartTime2"onclick="toggleTime(this)"></td> 
+            <td><input type="time" id="saleEndTime2"onclick="toggleTime(this)"></td>
+            <td id="status2">Chưa cập nhật</td>
+            <td><button onclick="sendPrice('02', 'product2', 'B', 'price2', 'sale2','saleStartTime2','saleEndTime2', 'status2')">Cập Nhật</button></td>
+            <td>
+                <div class="battery" id="battery02">
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                </div>
+              </td>
+            <td><input type="text" id="weight02" disabled /></td>
+
+        </tr>
+        <tr>
+            <td id="productId03">03</td>
+            <td><input type="text" id="product3" value="Pepsi"></td>
+            <!-- <td><input type="text" id="add3" value="C"></td>  -->
+            <td><input type="text" id="price3" value="10 000"></td>
+            <td><input type="text" id="sale3" placeholder=""></td>
+            <td><input type="time" id="saleStartTime3"onclick="toggleTime(this)"></td> 
+            <td><input type="time" id="saleEndTime3"onclick="toggleTime(this)"></td>
+            <td id="status3">Chưa cập nhật</td>
+            <td><button onclick="sendPrice('03', 'product3', 'C', 'price3', 'sale3','saleStartTime3','saleEndTime3', 'status3')">Cập Nhật</button></td>
+            <td>
+                <div class="battery" id="battery03">
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                </div>
+              </td>
+            <td><input type="text" id="weight03" disabled /></td>
+        </tr>
+        <tr>
+            <td id="productId04">04</td>
+            <td><input type="text" id="product4" value="Noodle"></td>
+            <!-- <td><input type="text" id="add4" value="D"></td>  -->
+            <td><input type="text" id="price4" value="4 500"></td>
+            <td><input type="text" id="sale4" placeholder=""></td>
+            <td><input type="time" id="saleStartTime4"onclick="toggleTime(this)"></td> 
+            <td><input type="time" id="saleEndTime4"onclick="toggleTime(this)"></td>
+            <td id="status4">Chưa cập nhật</td>
+            <td><button onclick="sendPrice('04', 'product4', 'D', 'price4', 'sale4','saleStartTime4','saleEndTime4', 'status4')">Cập Nhật</button></td>
+            <td>
+                <div class="battery" id="battery04">
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                </div>
+              </td>
+            <td><input type="text" id="weight04" disabled /></td>
+        </tr>
+        <tr>
+            <td id="productId05">05</td>
+            <td><input type="text" id="product5" value="Pork"></td>
+            <!-- <td><input type="text" id="add5" value="D"></td>  -->
+            <td><input type="text" id="price5" value="30 000"></td>
+            <td><input type="text" id="sale5" placeholder=""></td>
+            <td><input type="time" id="saleStartTime5"onclick="toggleTime(this)"></td> 
+            <td><input type="time" id="saleEndTime5"onclick="toggleTime(this)"></td>
+            <td id="status5">Chưa cập nhật</td>
+            <td><button onclick="sendPrice('05', 'product5', 'D', 'price5', 'sale5','saleStartTime5','saleEndTime5', 'status5')">Cập Nhật</button></td>
+            <td>
+                <div class="battery" id="battery05">
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                  <div class="battery-segment"></div>
+                </div>
+              </td>
+            <td><input type="text" id="weight05" disabled /></td>
+        </tr>
+    </tbody>
+</table>
+
+<p class="status" id="wsStatus"></p> 
+<button onclick="goBack()" style="margin-top: -70px; padding: 10px 20px; font-size: 16px; background: #dc3545; 
+color: white; border: none; cursor: pointer;margin-left: 1155px">⬅ Quay Lại Trang Chủ</button>
+
+<script>
+    const ws = new WebSocket('ws://localhost:8080');
+    ws.onopen = () => {
+    ws.send(JSON.stringify({ device: "browser" }));
+    console.log("Đã kết nối WebSocket");
+
+    const status = document.getElementById('wsStatus');
+    if (status) {
+        status.innerText = '✅ Đã kết nối với WebSocket';
+        status.style.color = 'green';
+    }
+};
+
+    ws.onclose = () => {
+        document.getElementById('wsStatus').innerText = '❌ Mất kết nối với WebSocket';
+        document.getElementById('wsStatus').style.color = 'red';
+    };
+
+    // Nhận và xử lý dữ liệu từ ESP32
+    ws.onmessage = (event) => {
+    const data = JSON.parse(event.data);  // Dữ liệu nhận được từ ESP32
+    console.log("Dữ liệu từ ESP32:", data);  // In dữ liệu nhận được
+    updateProductInfo(data);  // Hiển thị dữ liệu lên giao diện
+};
+
+    function checkSaleTime() {
+        const now = new Date();
+        const currentTime = now.toLocaleTimeString('vi-VN', { hour12: false });
+        
+        for (let i = 1; i <= 5; i++) {
+            const saleTimeInput = document.getElementById(`saleTime${i}`).value;
+            if (saleTimeInput && saleTimeInput === currentTime) {
+                applySale(i);
+            }
+        }
+    }
+    function formatNumber(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+//pin
+function updateBatteryDisplay(batteryId, batteryLevel) {
+  const batteryDiv = document.getElementById(batteryId);
+  if (!batteryDiv) return;
+
+  const segments = batteryDiv.querySelectorAll(".battery-segment");
+  segments.forEach(segment => {
+    segment.classList.remove("filled", "low-blink");
+    segment.style.backgroundColor = "#ccc";
+  });
+
+  if (batteryLevel < 20) {
+    batteryDiv.classList.add("low");
+    segments[0].classList.add("low-blink");
+  } else {
+    batteryDiv.classList.remove("low");
+    const filledCount = Math.ceil(batteryLevel / 20);
+    for (let i = 0; i < filledCount; i++) {
+      segments[i].classList.add("filled");
+      segments[i].style.backgroundColor = "green";
+    }
+  }
+}
+
+function updateProductInfo(data) {
+  const productId = data.id;
+  const weight = data.weight;
+  const power = parseInt(data.power);
+
+  const rows = document.querySelectorAll('table tr');
+
+  rows.forEach((row) => {
+    const td = row.querySelector('td');
+    if (td && td.textContent.trim() === productId) {
+      const weightInput = row.querySelector(`#weight${productId}`);
+      const batteryDiv = row.querySelector(`#battery${productId}`);
+      const statusElem = row.querySelector(`#status${productId}`);
+      const productIdCell = document.getElementById(`productId${productId}`);
+
+      let isLowBattery = power < 20;
+      let isLowWeight = weight < 100;
+
+      // Cập nhật cân nặng và trạng thái nháy
+      if (weightInput) {
+        weightInput.value = weight + "g";
+        weightInput.classList.toggle("blink", isLowWeight);
+      }
+
+      // Cập nhật trạng thái pin
+      if (batteryDiv) {
+        updateBatteryDisplay(`battery${productId}`, power);
+      }
+
+      // Cập nhật trạng thái "Cập nhật thành công"
+      if (statusElem) {
+        statusElem.innerText = "Cập nhật thành công";
+      }
+
+      // Cập nhật trạng thái nháy ô ID
+      if (productIdCell) {
+        if (isLowBattery || isLowWeight) {
+          productIdCell.classList.add("blink");
+        } else {
+          productIdCell.classList.remove("blink");
+        }
+      }
+
+      // Nếu pin = 0, vô hiệu hóa tất cả ô nhập liệu trừ ô pin và cân nặng
+      if (power === 0) {
+        row.querySelectorAll('input').forEach(input => {
+          if (input.id !== `weight${productId}` && input.id !== `battery${productId}`) {
+            input.disabled = true; // Vô hiệu hóa các ô nhập liệu
+          }
+        });
+        row.querySelector('button').disabled = true; // Vô hiệu hóa nút cập nhật
+      } else {
+        row.querySelectorAll('input').forEach(input => {
+          if (input.id !== `weight${productId}` && input.id !== `battery${productId}`) {
+            input.disabled = false; // Kích hoạt lại các ô nhập liệu
+          }
+        });
+        row.querySelector('button').disabled = false; // Kích hoạt lại nút cập nhật
+      }
+    }
+  });
+}
+
+
+function blinkProductIdCell(productId) {
+  const cell = document.getElementById(`productId${productId}`);
+  if (cell) {
+    cell.classList.add("blink");
+
+    // Sau 5 giây thì ngừng nháy
+    setTimeout(() => {
+      cell.classList.remove("blink");
+    }, 5000);
+  }
+}
+
+// Hàm xóa dấu cách để lấy số nguyên
+function parseNumber(str) {
+    return parseInt(str.replace(/\s/g, ""), 10);
+}
+window.onload = function () {
+    const defaultProducts = ["Milk", "Bread", "Pepsi", "Noodle", "Pork"];
+    const defaultPrices = ["20000", "15000", "10000", "4500", "30000"];
+
+    // Lưu dữ liệu vào localStorage ngay khi trang được load
+    ["product1", "product2", "product3", "product4", "product5"].forEach((productId, index) => {
+        let priceId = "price" + (index + 1);
+        let saleId = "sale" + (index + 1);
+        let saleStartTimeId = "saleStartTime" + (index + 1);
+        let saleEndTimeId = "saleEndTime" + (index + 1);
+        let statusId = "status" + (index + 1);
+
+        // Load dữ liệu từ localStorage hoặc sử dụng giá trị mặc định
+        document.getElementById(productId).value = localStorage.getItem(productId) || defaultProducts[index];
+        document.getElementById(priceId).value = localStorage.getItem(priceId) || defaultPrices[index];
+        document.getElementById(saleId).value = localStorage.getItem(saleId) || "";
+        document.getElementById(saleStartTimeId).value = localStorage.getItem(saleStartTimeId) || "";
+        document.getElementById(saleEndTimeId).value = localStorage.getItem(saleEndTimeId) || "";
+        document.getElementById(statusId).innerText = localStorage.getItem(statusId) || "Chưa cập nhật";
+
+        // Lắng nghe sự thay đổi của từng input để lưu dữ liệu vào localStorage
+        document.getElementById(productId).addEventListener('input', function () {
+            localStorage.setItem(productId, this.value);
+        });
+        document.getElementById(priceId).addEventListener('input', function () {
+            localStorage.setItem(priceId, this.value);
+        });
+        document.getElementById(saleId).addEventListener('input', function () {
+            localStorage.setItem(saleId, this.value);
+        });
+        document.getElementById(saleStartTimeId).addEventListener('input', function () {
+            localStorage.setItem(saleStartTimeId, this.value);
+        });
+        document.getElementById(saleEndTimeId).addEventListener('input', function () {
+            localStorage.setItem(saleEndTimeId, this.value);
+        });
+    });
+};
+const timeClickCounts = {};
+
+function toggleTime(element) {
+    const id = element.id;
+
+    // Initialize click count for this time input if not already set
+    if (!timeClickCounts[id]) {
+        timeClickCounts[id] = 0;
+    }
+
+    // Increment click count
+    timeClickCounts[id]++;
+
+    // On the second click, clear the time input
+    if (timeClickCounts[id] % 2 === 0) {
+        element.value = "";
+        localStorage.setItem(id, "");
+    }
+}
+
+let sentFlags = {};
+function sendPrice(id, productId, address, priceId, saleId, saleStartTimeId, saleEndTimeId, statusId) {
+// Tìm <td> có id bắt đầu là "productId" và nội dung là id sản phẩm
+  const productIdCells = document.querySelectorAll('[id^="productId"]');
+  let productIdCell = null;
+  productIdCells.forEach(cell => {
+    if (cell.textContent.trim() === id) {
+      productIdCell = cell;
+    }
+  });
+
+  if (!productIdCell) {
+    alert(`Không tìm thấy sản phẩm với ID ${id}`);
+    return;
+  }
+
+  const productRow = productIdCell.parentNode;
+
+  // Tìm battery div theo ID
+  const batteryDiv = productRow.querySelector(`#battery${id}`);
+  const batterySegments = batteryDiv ? batteryDiv.querySelectorAll('.battery-segment') : [];
+
+  let isLowBattery = true;
+  batterySegments.forEach(segment => {
+    if (segment.style.backgroundColor !== "rgb(204, 204, 204)") {
+      isLowBattery = false;
+    }
+  });
+
+  if (isLowBattery) {
+    alert(` 🪫 Pin yếu cho sản phẩm ${id}! Vui lòng sạc pin .`);
+   
+  }
+
+    const product = document.getElementById(productId).value;
+    const price = document.getElementById(priceId).value;
+    const sale = document.getElementById(saleId).value; // Sẽ là '' khi sale kết thúc
+    const saleStartTime = document.getElementById(saleStartTimeId).value;
+    const saleEndTime = document.getElementById(saleEndTimeId).value;
+    const now = new Date();
+    const timeString = now.toLocaleString("vi-VN");
+
+    // Lưu giá gốc nếu đây là lần cập nhật đầu tiên hoặc khi sale bắt đầu
+    if (!localStorage.getItem(`originalPrice${id}`) || saleStartTime) {
+        localStorage.setItem(`originalPrice${id}`, price);
+    }
+
+    const data = { id, product, address, price, sale, saleStartTime, saleEndTime, time: timeString };
+    ws.send(JSON.stringify(data));
+
+    localStorage.setItem(productId, product);
+    localStorage.setItem(priceId, price);
+    localStorage.setItem(saleId, sale);
+    localStorage.setItem(saleStartTimeId, saleStartTime);
+    localStorage.setItem(saleEndTimeId, saleEndTime);
+    localStorage.setItem(statusId, `Cập nhật lúc: ${timeString}`);
+
+    document.getElementById(statusId).innerText = `Cập nhật lúc: ${timeString}`;
+    document.getElementById(statusId).style.color = 'blue';
+}
+
+function checkSaleTimes() {
+    const now = new Date();
+    const currentTime = now.toTimeString().slice(0, 5); // Lấy giờ:phút (HH:MM)
+
+    for (let i = 1; i <= 5; i++) {
+        const saleStartTime = document.getElementById(`saleStartTime${i}`).value;
+        const saleEndTime = document.getElementById(`saleEndTime${i}`).value;
+        const productId = `product${i}`;
+        const priceId = `price${i}`;
+        const saleId = `sale${i}`;
+        const saleStartTimeId = `saleStartTime${i}`;
+        const saleEndTimeId = `saleEndTime${i}`;
+        const statusId = `status${i}`;
+        const key = `product${i}`;
+
+        const productData = {
+            id: String(i).padStart(2, '0'),
+            product: document.getElementById(productId).value,
+            address: document.querySelector(`#productTable tr:nth-child(${i}) td:nth-child(3)`).innerText,
+        };
+
+        // Khi đến giờ sale bắt đầu
+        if (saleStartTime && currentTime === saleStartTime && !sentFlags[key]) {
+            sendPrice(
+                productData.id,
+                productId,
+                productData.address,
+                priceId,
+                saleId,
+                saleStartTimeId,
+                saleEndTimeId,
+                statusId
+            );
+            sentFlags[key] = true; // Đánh dấu đã gửi khi sale bắt đầu
+            console.log(`Đã gửi dữ liệu bắt đầu sale cho ${productData.product} lúc ${currentTime}`);
+        }
+        // Khi đến giờ sale kết thúc
+        else if (saleEndTime && currentTime === saleEndTime && sentFlags[key]) {
+            // Đặt giá trị sale thành chuỗi rỗng trước khi gửi
+            document.getElementById(saleId).value = ""; // Xóa giá trị ô "Giảm giá" trên giao diện
+            localStorage.setItem(saleId, ""); // Cập nhật localStorage
+
+            sendPrice(
+                productData.id,
+                productId,
+                productData.address,
+                priceId,
+                saleId,
+                saleStartTimeId,
+                saleEndTimeId,
+                statusId
+            );
+            sentFlags[key] = false; // Reset cờ sau khi sale kết thúc
+            console.log(`Đã gửi dữ liệu kết thúc sale cho ${productData.product} lúc ${currentTime}`);
+
+            // Khôi phục giá gốc và cập nhật trạng thái
+            const originalPrice = localStorage.getItem(`originalPrice${i}`) || document.getElementById(priceId).value;
+            document.getElementById(priceId).value = originalPrice;
+            document.getElementById(statusId).innerText = "Đã kết thúc sale";
+            document.getElementById(statusId).style.color = "red";
+        }
+        // Reset cờ nếu chưa đến giờ sale
+        else if (saleStartTime && currentTime < saleStartTime) {
+            sentFlags[key] = false;
+        }
+    }
+}cdcd
+// Kiểm tra thời gian mỗi giây
+setInterval(checkSaleTimes, 1000);
+
+// Kiểm tra thời gian mỗi giây
+setInterval(checkSaleTimes, 1000);
+
+// Kiểm tra thời gian mỗi giây
+setInterval(checkSaleStartTime, 1000); 
+
+
+    function goBack() {
+        window.location.href = "index.html";
+    }
+    
+</script>
+<script>
+        function updateClock() {
+            const now = new Date();
+    let hours = now.getHours().toString().padStart(2, '0');
+    let minutes = now.getMinutes().toString().padStart(2, '0');
+    let seconds = now.getSeconds().toString().padStart(2, '0');
+    document.getElementById('time').innerText = `${hours}:${minutes}:${seconds}`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+    </script>

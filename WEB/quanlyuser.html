@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Người Dùng</title>
+    <style>
+      body {
+    font-family: 'Arial', sans-serif;
+    background: url('background_user.jpg') no-repeat center center fixed;
+    background-size: cover;
+    text-align: center;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 35%;
+    margin: 50px auto;
+    transition: 0.3s;
+}
+
+.box {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
+    margin-bottom: 20px;
+    transition: 0.3s;
+}
+
+.box:hover {
+    transform: scale(1.02);
+}
+
+h2, h3 {
+    color: #007bff;
+    font-weight: bold;
+}
+
+input, button {
+    width: 85%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease-in-out;
+}
+
+input:focus {
+    border-color: #007bff;
+    box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.5);
+}
+
+button {
+    width: 45%;
+    background: linear-gradient(45deg, #28a745, #218838);
+    color: white;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+}
+
+button:hover {
+    background: linear-gradient(45deg, #218838, #1e7e34);
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.15);
+}
+
+th, td {
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background: linear-gradient(45deg, #007bff, #0056b3);
+    color: white;
+    font-size: 16px;
+}
+
+td {
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.delete-btn, .edit-btn {
+    padding: 8px;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.delete-btn {
+    background: linear-gradient(45deg, #dc3545, #c82333);
+    color: white;
+}
+
+.edit-btn {
+    background: linear-gradient(45deg, #ffc107, #e0a800);
+    color: black;
+}
+
+.delete-btn:hover {
+    background: linear-gradient(45deg, #c82333, #a71d2a);
+    transform: scale(1.1);
+}
+
+.edit-btn:hover {
+    background: linear-gradient(45deg, #e0a800, #c69500);
+    transform: scale(1.1);
+}
+
+button:focus, input:focus {
+    outline: none;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <h2>Quản lý người dùng</h2>
+            <input type="text" id="newUser" placeholder="Tên tài khoản mới">
+            <input type="password" id="newPass" placeholder="Mật khẩu mới">
+            <button onclick="addAccount()">Thêm Tài Khoản</button>
+        </div>
+        <div class="box">
+            <h3>Danh sách tài khoản</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tên tài khoản</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody id="userList"></tbody>
+            </table>
+        </div>
+        <button onclick="goToIndex()">Quay lại trang chủ</button>
+    </div>
+
+    <script>
+        function loadAccounts() {
+            let accounts = JSON.parse(localStorage.getItem("accounts")) || [];
+            let userList = document.getElementById("userList");
+
+            userList.innerHTML = accounts.length === 0 ? "<tr><td colspan='2'>Không có tài khoản nào.</td></tr>" : 
+                accounts.map(acc => `
+                    <tr>
+                        <td><strong>${acc.username}</strong></td>
+                        <td>
+                            <button class="edit-btn" onclick="editAccount('${acc.username}')">✏ Sửa</button>
+                            <button class="delete-btn" onclick="deleteAccount('${acc.username}')">🗑 Xóa</button>
+                        </td>
+                    </tr>
+                `).join("");
+        }
+
+        function addAccount() {
+            let username = document.getElementById("newUser").value.trim();
+            let password = document.getElementById("newPass").value.trim();
+
+            if (!username || !password) {
+                alert("Vui lòng nhập tài khoản và mật khẩu!");
+                return;
+            }
+
+            let accounts = JSON.parse(localStorage.getItem("accounts")) || [];
+            if (accounts.some(acc => acc.username === username)) {
+                alert("Tài khoản đã tồn tại!");
+                return;
+            }
+
+            accounts.push({ username, password });
+            localStorage.setItem("accounts", JSON.stringify(accounts));
+
+            document.getElementById("newUser").value = "";
+            document.getElementById("newPass").value = "";
+            loadAccounts();
+            alert("Thêm tài khoản thành công!");
+        }
+
+        function deleteAccount(username) {
+            if (!confirm(`Bạn có chắc chắn muốn xóa tài khoản "${username}"?`)) return;
+            let accounts = JSON.parse(localStorage.getItem("accounts")) || [];
+            accounts = accounts.filter(acc => acc.username !== username);
+            localStorage.setItem("accounts", JSON.stringify(accounts));
+            loadAccounts();
+        }
+
+        function editAccount(username) {
+            let newPassword = prompt(`Nhập mật khẩu mới cho tài khoản "${username}":`);
+            if (!newPassword) return;
+            let accounts = JSON.parse(localStorage.getItem("accounts")) || [];
+            let account = accounts.find(acc => acc.username === username);
+            if (account) {
+                account.password = newPassword;
+                localStorage.setItem("accounts", JSON.stringify(accounts));
+                alert("Cập nhật mật khẩu thành công!");
+                loadAccounts();
+            }
+        }
+
+        function goToIndex() {
+            window.location.href = "index.html";
+        }
+
+        window.onload = loadAccounts;
+    </script>
+</body>
+</html>

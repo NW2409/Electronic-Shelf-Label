@@ -1,0 +1,253 @@
+[
+  {
+    "id": "001",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "5011",
+    "sale": "3",
+    "time": "22:34:14 16/3/2025"
+  },
+  {
+    "id": "001",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "49.999",
+    "sale": "3%",
+    "time": "22:35:10 16/3/2025"
+  },
+  {
+    "id": "001",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "49.999",
+    "sale": "",
+    "time": "22:58:19 16/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "12.000",
+    "sale": "13"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "13",
+    "sale": "13"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "15",
+    "sale": "1"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "1557",
+    "sale": "10"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "1557",
+    "sale": "10"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "10.000",
+    "sale": "5",
+    "time": "21:22:27 19/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "10.000",
+    "sale": "5",
+    "time": "07:32:47 20/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "20.000",
+    "sale": "4",
+    "time": "15:28:07 22/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "30.000",
+    "sale": "2",
+    "time": "20:48:41 24/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "50.000",
+    "sale": "2",
+    "time": "20:59:33 24/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "55.000",
+    "sale": "2",
+    "time": "20:59:58 24/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "55.000",
+    "sale": "4",
+    "time": "21:02:55 24/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "55.000",
+    "sale": "4",
+    "time": "21:03:25 24/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "55.000",
+    "sale": "1",
+    "time": "21:05:57 24/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "55.000",
+    "sale": "",
+    "time": "21:13:35 24/3/2025"
+  },
+  {
+    "id": "02",
+    "product": "Bánh mì",
+    "address": "SP02",
+    "price": "15.000",
+    "sale": "",
+    "time": "21:15:24 24/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "55.000",
+    "sale": "12",
+    "time": "21:07:12 24/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "55.000",
+    "sale": "",
+    "time": "21:29:03 24/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "55.000",
+    "sale": "",
+    "time": "21:33:58 24/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "55.000",
+    "sale": "",
+    "time": "21:50:18 24/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "55.000",
+    "sale": "",
+    "time": "22:09:47 24/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "55.000",
+    "sale": "123",
+    "time": "22:24:41 24/3/2025"
+  },
+  {
+    "id": "02",
+    "product": "Bánh mì",
+    "address": "SP02",
+    "price": "15.000",
+    "sale": "",
+    "time": "22:25:33 24/3/2025"
+  },
+  {
+    "id": "03",
+    "product": "Nước ngọt",
+    "address": "SP03",
+    "price": "10.000",
+    "sale": "",
+    "time": "22:25:41 24/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "55.000",
+    "sale": "",
+    "time": "22:29:17 24/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "55.000",
+    "sale": "",
+    "time": "22:34:08 24/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "55.000",
+    "sale": "",
+    "time": "22:41:25 24/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "55.000",
+    "sale": "",
+    "time": "22:41:26 24/3/2025"
+  },
+  {
+    "id": "01",
+    "product": "Sữa tươi",
+    "address": "SP01",
+    "price": "155.000",
+    "sale": "",
+    "time": "22:43:24 24/3/2025"
+  }
+]
