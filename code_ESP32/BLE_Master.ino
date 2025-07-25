@@ -71,7 +71,7 @@ String saleEndTime ="";
 
 #define AP_SSID "BLE_GATEWAY"
 #define AP_PASSWORD "12345678"
-const char* ws_server = "ws://192.168.0.103:8080"; // Đổi theo địa chỉ WebSocket Server
+const char* ws_server = "ws://192.168.0.103:8080"; // Đổi theo địa chỉ WebSocket ServeR
 
 
 #define EEPROM_SIZE 256
